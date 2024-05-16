@@ -5,11 +5,24 @@ def main():
         #print(file_contents) #Prints contents variable to the console
 
         #prints the number of words
-        #number_of_words = count(file_contents)
+        number_of_words = count(file_contents)
         #print(f"The book conatains {number_of_words} words.")
 
         #print a dictionary with characters in the text and how often they appeared
-        print(f"The following characters were used in the text with the following numbers: {let_dict(file_contents)}")
+        char_dic = let_dict(file_contents)
+        #convert the character dictionary into a list of dictionaries for sorting
+        char_list = [{"char": key, "num": value} for key, value in char_dic.items()]
+        #print(f"The following characters were used in the text with the following numbers: {char_dic}")
+
+        #Report
+        print("--- Begin report of books/frankenstein.txt ---")
+        print(f"{number_of_words} words found in the document\n")
+        #sort and print the characters by frequency
+        char_list.sort(reverse=True, key=sort_on)
+        for item in char_list:
+            print(f"The '{item['char']}' character was found {item['num']} times")
+        print("--- End report ---")
+
         
 
 
@@ -37,6 +50,8 @@ def let_dict(text):
                dic[letter] = 1
      return dic
 
+def sort_on(dic):
+     return dic["num"]
 
 # This protective if condition ensures 'main()' is called at the right moment.
 if __name__ == '__main__':
